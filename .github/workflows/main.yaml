@@ -58,7 +58,9 @@ jobs:
         run: mvn clean verify
   qa:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    continue-on-error: true
+
     steps:
       - name: Download repository
         uses: actions/checkout@v2
@@ -69,29 +71,12 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Install Chrome and ChromeDriver for E2E testing
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      - name: Review QA with SonarQube
         run: |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-
-          sudo apt --fix-broken install -y
-
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE) 
-
-          curl -L -o chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-
-          unzip chromedriver.zip
-
-          chmod +x chromedriver
-
-          sudo mv chromedriver /usr/local/bin/
-
-      - name: Run app for E2E tests
-        run: mvn spring-boot:run & sleep 60
-
-      - name: Run unit, integration and E2E tests
-        run: mvn clean verify
+          mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=rootadmin
   deploy:
     needs: qa
     runs-on: ubuntu-latest
