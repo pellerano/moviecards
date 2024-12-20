@@ -28,7 +28,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
+          name: moviecards-java
           path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
@@ -39,13 +39,13 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
-  
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: java-app
-      
+          name: moviecards-java
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -60,4 +60,3 @@ jobs:
           app-name: 'moviecards-pellerano'
           slot-name: 'Production'
           package: '*.jar'
-          
