@@ -88,6 +88,11 @@ jobs:
       id-token: write #This is required for requesting the JWT
 
     steps:
+      - name: Aprobación manual
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.TOKEN }}
+          approvers: pellerano
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
