@@ -35,7 +35,7 @@ jobs:
         run: mvn spring-boot:run & sleep 60
 
       - name: Run unit, integration and E2E tests
-        run: mvn clean verif
+        run: mvn clean verify
 
       - name: Build with Maven
         run: mvn clean package -DskipTests
