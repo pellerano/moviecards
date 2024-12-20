@@ -100,4 +100,4 @@ jobs:
           app-name: 'moviecards-pellerano'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D6ED3BD417664637ADFE2D648524B336 }}
+          publish-profile: ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_087C5AA638674F1C8A94DA8C7A3ABFF8 }}
