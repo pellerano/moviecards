@@ -1,0 +1,26 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: package
+        run: echo "package"
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: tests
+        run: echo "tests"
+  qa:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: qa
+        run: echo "qa"
+  deploy:
+    needs: qa
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        run: echo "deploy"
