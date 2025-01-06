@@ -26,6 +26,7 @@ public class MovieController {
     private static final String MOVIE_ATTRIBUTE = "movie";
     private static final String TITLE_ATTRIBUTE = "title";
     private static final String MOVIE_FORM_VIEW = "movies/form";
+    private static final String MOVIE_LIST_VIEW = "movies/list";
 
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
@@ -34,7 +35,7 @@ public class MovieController {
     @GetMapping("movies")
     public String getMoviesList(Model model) {
         model.addAttribute("movies", movieService.getAllMovies());
-        return "movies/list";
+        return MOVIE_LIST_VIEW;
     }
 
     @GetMapping("movies/new")
@@ -47,7 +48,7 @@ public class MovieController {
     @PostMapping("saveMovie")
     public String saveMovie(@ModelAttribute Movie movie, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return MOVIE_FORM_VIEW;
+            return "redirect:" + MOVIE_LIST_VIEW;
         }
         Movie movieSaved = movieService.save(movie);
         if (movieSaved.getId() != null) {
