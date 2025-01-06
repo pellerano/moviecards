@@ -32,42 +32,42 @@ public class MovieTest {
     void testSetGetReleaseYear() {
         Integer releaseYearExample = 2000;
         movie.setReleaseYear(releaseYearExample);
-        assertEquals(releaseYearExample,movie.getReleaseYear());
+        assertEquals(releaseYearExample, movie.getReleaseYear());
     }
 
     @Test
     void testSetGetDuration() {
         Integer durationExample = 100;
         movie.setDuration(durationExample);
-        assertEquals(durationExample,movie.getDuration());
-    }    
+        assertEquals(durationExample, movie.getDuration());
+    }
 
     @Test
     void testSetGetCountry() {
         String countryExample = "Sample country";
         movie.setCountry(countryExample);
-        assertEquals(countryExample,movie.getCountry());
+        assertEquals(countryExample, movie.getCountry());
     }
 
     @Test
     void testSetGetDirector() {
         String directorExample = "Sample director";
         movie.setDirector(directorExample);
-        assertEquals(directorExample,movie.getDirector());
+        assertEquals(directorExample, movie.getDirector());
     }
 
     @Test
     void testSetGetGenre() {
         String genreExample = "Sample genre";
         movie.setGenre(genreExample);
-        assertEquals(genreExample,movie.getGenre());
+        assertEquals(genreExample, movie.getGenre());
     }
 
     @Test
     void testSetGetSinopsis() {
         String sinopsisExample = "Sample sinopsis";
         movie.setSinopsis(sinopsisExample);
-        assertEquals(sinopsisExample,movie.getSinopsis());
+        assertEquals(sinopsisExample, movie.getSinopsis());
     }
 
     @Test
@@ -81,18 +81,21 @@ public class MovieTest {
     void testAddActor() {
         List<Actor> actorsExample = new ArrayList<Actor>();
         movie.setActors(actorsExample);
-        Actor actorExample = new Actor(1,"Sample name");
+        Actor actorExample = new Actor(1, "Sample name");
         movie.addActor(actorExample);
-        assert(movie.getActors().contains(actorExample));
+        assert (movie.getActors().contains(actorExample));
+        assert (movie.getActors().size() == 1);
+
     }
 
     @Test
     void testExistActorInMovie() {
         List<Actor> actorsExample = new ArrayList<Actor>();
-        Actor actorExample = new Actor(2,"Sample name");
+        Actor actorExample = new Actor(2, "Sample name");
         actorsExample.add(actorExample);
         movie.setActors(actorsExample);
-        assert(movie.existActorInMovie(actorExample));
+        assert (movie.existActorInMovie(actorExample));
+        assert (movie.getActors().size() == 1);
     }
 
 }
