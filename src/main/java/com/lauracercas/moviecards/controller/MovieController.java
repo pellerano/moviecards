@@ -46,16 +46,18 @@ public class MovieController {
 
     @PostMapping("saveMovie")
     public String saveMovie(@ModelAttribute Movie movie, BindingResult result, Model model) {
+        if (!result.hasErrors()) {
+            Movie movieSaved = movieService.save(movie);
+            if (movieSaved.getId() != null) {
+                model.addAttribute("message", Messages.UPDATED_MOVIE_SUCCESS);
+            } else {
+                model.addAttribute("message", Messages.SAVED_MOVIE_SUCCESS);
+            }
 
-        Movie movieSaved = movieService.save(movie);
-        if (movieSaved.getId() != null) {
-            model.addAttribute("message", Messages.UPDATED_MOVIE_SUCCESS);
-        } else {
-            model.addAttribute("message", Messages.SAVED_MOVIE_SUCCESS);
+            model.addAttribute(MOVIE_ATTRIBUTE, movieSaved);
+            model.addAttribute(TITLE_ATTRIBUTE, Messages.EDIT_MOVIE_TITLE);
         }
 
-        model.addAttribute(MOVIE_ATTRIBUTE, movieSaved);
-        model.addAttribute(TITLE_ATTRIBUTE, Messages.EDIT_MOVIE_TITLE);
         return MOVIE_FORM_VIEW;
     }
 
