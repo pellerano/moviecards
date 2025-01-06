@@ -46,9 +46,7 @@ public class MovieController {
 
     @PostMapping("saveMovie")
     public String saveMovie(@ModelAttribute Movie movie, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return MOVIE_FORM_VIEW;
-        }
+
         Movie movieSaved = movieService.save(movie);
         if (movieSaved.getId() != null) {
             model.addAttribute("message", Messages.UPDATED_MOVIE_SUCCESS);

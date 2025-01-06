@@ -46,9 +46,7 @@ public class ActorController {
 
     @PostMapping("saveActor")
     public String saveActor(@ModelAttribute Actor actor, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return ACTOR_FORM_VIEW;
-        }
+
         Actor actorSaved = actorService.save(actor);
         if (actor.getId() != null) {
             model.addAttribute("message", Messages.UPDATED_ACTOR_SUCCESS);
