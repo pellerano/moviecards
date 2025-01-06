@@ -24,6 +24,7 @@ public class ActorController {
 
     private final ActorService actorService;
     private static final String ACTOR_ATTRIBUTE = "actor";
+    private static final String TITLE_ATTRIBUTE = "title";
 
     public ActorController(ActorService actorService) {
         this.actorService = actorService;
@@ -38,7 +39,7 @@ public class ActorController {
     @GetMapping("actors/new")
     public String newActor(Model model) {
         model.addAttribute(ACTOR_ATTRIBUTE, new Actor());
-        model.addAttribute("title", Messages.NEW_ACTOR_TITLE);
+        model.addAttribute(TITLE_ATTRIBUTE, Messages.NEW_ACTOR_TITLE);
         return "actors/form";
     }
 
@@ -55,7 +56,7 @@ public class ActorController {
         }
 
         model.addAttribute(ACTOR_ATTRIBUTE, actorSaved);
-        model.addAttribute("title", Messages.EDIT_ACTOR_TITLE);
+        model.addAttribute(TITLE_ATTRIBUTE, Messages.EDIT_ACTOR_TITLE);
         return "actors/form";
     }
 
@@ -66,7 +67,7 @@ public class ActorController {
         model.addAttribute(ACTOR_ATTRIBUTE, actor);
         model.addAttribute("movies", movies);
 
-        model.addAttribute("title", Messages.EDIT_ACTOR_TITLE);
+        model.addAttribute(TITLE_ATTRIBUTE, Messages.EDIT_ACTOR_TITLE);
 
         return "actors/form";
     }
