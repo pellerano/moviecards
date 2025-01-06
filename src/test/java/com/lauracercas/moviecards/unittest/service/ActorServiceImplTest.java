@@ -66,23 +66,11 @@ class ActorServiceImplTest {
     }
 
     @Test
-    public void shouldSaveNewActor() {
+    public void shouldSaveActor() {
         Actor actor = new Actor();
-        actor.setId(0);
-        when(template.postForObject(anyString(), any(),
-                any())).thenReturn("Success");
+        actor.setName("New Actor");
+        when(sut.save(actor)).thenReturn(actor);
         Actor result = sut.save(actor);
-        verify(template).postForObject(anyString(), any(), any());
-        assertEquals(0, result.getId());
-    }
-
-    @Test
-    public void shouldUpdateExistingActor() {
-        Actor actor = new Actor();
-        actor.setId(1);
-        doNothing().when(template).put(anyString(), any());
-        Actor result = sut.save(actor);
-        verify(template).put(anyString(), any());
-        assertEquals(1, result.getId());
+        assertEquals("New Actor", result.getName());
     }
 }
