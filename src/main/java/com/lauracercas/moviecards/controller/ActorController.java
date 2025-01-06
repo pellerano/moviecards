@@ -26,7 +26,6 @@ public class ActorController {
     private static final String ACTOR_ATTRIBUTE = "actor";
     private static final String TITLE_ATTRIBUTE = "title";
     private static final String ACTOR_FORM_VIEW = "actors/form";
-    private static final String ACTOR_LIST_VIEW = "actors/list";
 
     public ActorController(ActorService actorService) {
         this.actorService = actorService;
@@ -35,7 +34,7 @@ public class ActorController {
     @GetMapping("actors")
     public String getActorsList(Model model) {
         model.addAttribute("actors", actorService.getAllActors());
-        return ACTOR_LIST_VIEW;
+        return "actors/list";
     }
 
     @GetMapping("actors/new")
@@ -48,7 +47,7 @@ public class ActorController {
     @PostMapping("saveActor")
     public String saveActor(@ModelAttribute Actor actor, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return ACTOR_LIST_VIEW;
+            return ACTOR_FORM_VIEW;
         }
         Actor actorSaved = actorService.save(actor);
         if (actor.getId() != null) {
