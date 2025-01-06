@@ -23,6 +23,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private static final String MOVIE_ATTRIBUTE = "movie";
 
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
@@ -36,7 +37,7 @@ public class MovieController {
 
     @GetMapping("movies/new")
     public String newMovie(Model model) {
-        model.addAttribute("movie", new Movie());
+        model.addAttribute(MOVIE_ATTRIBUTE, new Movie());
         model.addAttribute("title", Messages.NEW_MOVIE_TITLE);
         return "movies/form";
     }
@@ -53,7 +54,7 @@ public class MovieController {
             model.addAttribute("message", Messages.SAVED_MOVIE_SUCCESS);
         }
 
-        model.addAttribute("movie", movieSaved);
+        model.addAttribute(MOVIE_ATTRIBUTE, movieSaved);
         model.addAttribute("title", Messages.EDIT_MOVIE_TITLE);
         return "movies/form";
     }
@@ -62,7 +63,7 @@ public class MovieController {
     public String editMovie(@PathVariable Integer movieId, Model model) {
         Movie movie = movieService.getMovieById(movieId);
         List<Actor> actors = movie.getActors();
-        model.addAttribute("movie", movie);
+        model.addAttribute(MOVIE_ATTRIBUTE, movie);
         model.addAttribute("actors", actors);
 
         model.addAttribute("title", Messages.EDIT_MOVIE_TITLE);
