@@ -18,5 +18,8 @@ public class Messages {
     public static final String EDIT_MOVIE_TITLE = "Editar Película";
     public static final String NEW_MOVIE_TITLE = "Nueva Película";
 
+    private Messages() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
 
 }
