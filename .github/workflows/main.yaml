@@ -21,6 +21,7 @@ jobs:
         with:
           name: moviecards-java
           path: '${{ github.workspace }}/target/*.jar'
+
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -56,6 +57,7 @@ jobs:
 
       - name: Run Unit, Integration and E2E tests.
         run: mvn clean verify
+
   qa:
     needs: test
     runs-on: self-hosted
