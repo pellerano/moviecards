@@ -80,7 +80,7 @@ jobs:
 
   stage:
     runs-on: ubuntu-latest
-    needs: build
+    needs: qa
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -89,7 +89,14 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: java-app
+          name: moviecard-java
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1A9B2B93F07C4EF88AD06D058A79C62D }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DEC5E340777A4460BC769C3F4C65E363 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F59B4AE5AE02434DB0669CC37A3DD0E6 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
